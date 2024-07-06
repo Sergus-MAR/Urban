@@ -5,9 +5,8 @@ while i < len(my_list):
     if my_list[i] < 0:
         break
     elif my_list[i] > 0:
-            rezault_list.append(my_list[i])
+            print(my_list[i])
             i += 1
     else:
         i +=1
         continue
-print(rezault_list)
