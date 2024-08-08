@@ -17,15 +17,6 @@
         return f"Название: {self.name}, кол-во этажей: {self.number_of_floors}"
 
 
-h1 = House('ЖК Горский', 18)
-h2 = House('Домик в деревне', 2)
-'''h3 = House('Невский', 8)
-h4 = House('Изумрудный', 9)
-h1.go_to(5)
-h2.go_to(10)        
-h3.go_to(3)
-h4.go_to(1)'''
-
 h1 = House('ЖК Эльбрус', 10)
 h2 = House('ЖК Акация', 20)
 
