@@ -42,13 +42,9 @@
 
 
     def __radd__(self, value):
-        '''if isinstance(value, int):
-            self.number_of_floors += value'''
         return self + value
     
     def __iadd__(self, value):
-        '''if isinstance(value, int):
-            self.number_of_floors += value'''
         return self + value
     
 h1 = House('ЖК Эльбрус', 10)
