@@ -1,5 +1,5 @@
 ﻿class Vehicle():  #Класс любого транспорта 
-    __COLOR_VARIANTS = ['Red', 'White', 'Grey', 'Green', 'Blue', 'Yellow','Black']
+    __COLOR_VARIANTS = ['RED', 'WHITE', 'GREY', 'GREEN', 'BLUE', 'YELLOW','BLACK']
     def __init__(self, owner, model, color, engine_power):  #Иннициализация атрибутов
         if isinstance(owner, str):
             self.owner = owner #владелец транспорта. (владелец может меняться)
