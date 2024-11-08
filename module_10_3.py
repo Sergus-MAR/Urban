@@ -17,7 +17,7 @@ class Bank:
                 self.lock.release() #Снимаем блокировку т.к. баланса достаточно для снятия от 50 до 500
             self.balance += up_balance
             print(f'Пополнение: {up_balance}. Баланс: {self.balance}')
-            time.sleep(0.01)
+            time.sleep(0.001)
 
     def take(self):
         take_transaction = 100
@@ -30,7 +30,7 @@ class Bank:
             else:
                 print('Запрос отклонён, недостаточно средств.')
                 self.lock.acquire() #Устанавливаем блокировку т.к. недостаточно средств
-                time.sleep(0.01)
+                time.sleep(0.001)
 
 bk = Bank()
 
