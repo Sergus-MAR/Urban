@@ -10,11 +10,10 @@ bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
 kb_1 = ReplyKeyboardMarkup(resize_keyboard=True)
-kb_2 = ReplyKeyboardMarkup(resize_keyboard=True)
 button_1 = KeyboardButton(text='Рассчитать')
 button_2 = KeyboardButton(text='Информация')
 kb_1.add(button_1, button_2)
-kb_2.add(button_2)
+
 
 class UserState (StatesGroup):
     age = State()
@@ -28,21 +27,21 @@ async def start_message(message):
 
 @dp.message_handler(text=['Рассчитать'])
 async def set_age(message):
-    await message.answer('Введите свой возраст:', reply_markup=kb_2)
+    await message.answer('Введите свой возраст:')
     await UserState.age.set()
 
 
 @dp.message_handler(state=UserState.age)
 async def set_growth(message, state):
     await state.update_data(age=message.text)
-    await message.answer('Введите свой рост:', reply_markup=kb_2)
+    await message.answer('Введите свой рост:')
     await UserState.growth.set()
 
 
 @dp.message_handler(state=UserState.growth)
 async def set_weight(message, state):
     await state.update_data(growth=message.text)
-    await message.answer('Введите свой вес:', reply_markup=kb_2)
+    await message.answer('Введите свой вес:')
     await UserState.weight.set()
 
 
@@ -50,17 +49,16 @@ async def set_weight(message, state):
 async def send_calories(message, state):
     await state.update_data(weight=message.text)
     data = await state.get_data()
-    men_calories = round(10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5)
-    women_calories = round(10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) - 161)
-    await message.answer(f'Если Вы мужчина - вам требуется {men_calories} коллорий')
-    await message.answer(f'Если Вы женщина - вам требуется {women_calories} коллорий', reply_markup=kb_1)
+    men_calories = round((10 * int(data['weight']) + 6.25 * int(data['growth']) - 5 * int(data['age']) + 5), 2)
+    await message.answer(f'Ваша норма калорий {men_calories}')
     await state.finish()
 
 
 @dp.message_handler()
 async def set_age(message):
-    await message.answer('Для начала работы введите "Расчитать" или нажмите на кнопку', reply_markup=kb_1)
+    await message.answer('Введите команду /start чтобы начать общение')
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+
 
