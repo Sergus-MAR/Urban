@@ -11,28 +11,28 @@ price_list = [100, 200, 300, 400]
 # End products table and data
 
 
-def initiate_db(table, title, description, price):
-    global products_table
+def initiate_db(title, description, price):
+    global products_table, db_name
     connection = sqlite3.connect(db_name)
     cursor = connection.cursor()
     cursor.execute(f'''
-    CREATE TABLE IF NOT EXISTS {table} (
+    CREATE TABLE IF NOT EXISTS {products_table} (
     id INTEGER PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     price INTEGER NOT NULL)
     ''')
     for i in range(len(title)):
-        product_finding = cursor.execute(f'SELECT * FROM {table} WHERE title=?', (title[i], ))
+        product_finding = cursor.execute(f'SELECT * FROM {products_table} WHERE title=?', (title[i], ))
         if product_finding.fetchone() is None:
-            cursor.execute(f"INSERT INTO {table} (title, description, price) VALUES (?, ?, ?)",
+            cursor.execute(f"INSERT INTO {products_table} (title, description, price) VALUES (?, ?, ?)",
                            (title[i], description[i], price[i]))
     connection.commit()
     connection.close()
 
 
 def get_all_products():
-    global products_table
+    global products_table, db_name
     connection = sqlite3.connect(db_name)
     cursor = connection.cursor()
     cursor.execute(f'SELECT title, description, price FROM {products_table}')
@@ -41,6 +41,6 @@ def get_all_products():
     return list(products_list)
 
 
-initiate_db(products_table, title_list, description_list, price_list)
+initiate_db(title_list, description_list, price_list)
 
 
