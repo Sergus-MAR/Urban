@@ -95,7 +95,7 @@ async def send_calories(message, state):
 
 
 @dp.message_handler()
-async def set_age(message):
+async def all_messages(message):
     await message.answer('Введите команду /start, чтобы начать общение')
 
 
